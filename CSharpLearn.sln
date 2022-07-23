@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns", "Patterns", "{A0449F77-DA15-4378-B09E-CB527EBA878B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generative", "Generative", "{5965F3EE-3672-4ADF-8811-8426E3E5FF8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patterns.FactoryMethod", "Patterns\Generative\Patterns.FactoryMethod\Patterns.FactoryMethod.csproj", "{6F64F946-5867-4F04-BEE6-81580944C91F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patterns.FactoryMethod", "Patterns\Generative\Patterns.FactoryMethod\Patterns.FactoryMethod.csproj", "{6F64F946-5867-4F04-BEE6-81580944C91F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Patterns.AbstractFactory", "Patterns\Generative\Patterns.AbstractFactory\Patterns.AbstractFactory.csproj", "{0ED41C3C-3671-488C-838D-A343E391EAD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patterns.AbstractFactory", "Patterns\Generative\Patterns.AbstractFactory\Patterns.AbstractFactory.csproj", "{0ED41C3C-3671-488C-838D-A343E391EAD9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patterns.Builder", "Patterns\Generative\Patterns.Builder\Patterns.Builder.csproj", "{8F1C96F1-6463-4153-B7E5-025E2E19FEAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +27,21 @@ Global
 		{0ED41C3C-3671-488C-838D-A343E391EAD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ED41C3C-3671-488C-838D-A343E391EAD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ED41C3C-3671-488C-838D-A343E391EAD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F1C96F1-6463-4153-B7E5-025E2E19FEAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F1C96F1-6463-4153-B7E5-025E2E19FEAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F1C96F1-6463-4153-B7E5-025E2E19FEAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F1C96F1-6463-4153-B7E5-025E2E19FEAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5965F3EE-3672-4ADF-8811-8426E3E5FF8A} = {A0449F77-DA15-4378-B09E-CB527EBA878B}
 		{6F64F946-5867-4F04-BEE6-81580944C91F} = {5965F3EE-3672-4ADF-8811-8426E3E5FF8A}
 		{0ED41C3C-3671-488C-838D-A343E391EAD9} = {5965F3EE-3672-4ADF-8811-8426E3E5FF8A}
+		{8F1C96F1-6463-4153-B7E5-025E2E19FEAD} = {5965F3EE-3672-4ADF-8811-8426E3E5FF8A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {269B9AE0-B9D4-4A22-85D9-A4D43A761C95}
 	EndGlobalSection
 EndGlobal
