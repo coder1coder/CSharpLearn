@@ -1,31 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 
 namespace Threading.SynchronizationPrimitives
 {
-    public class Operator
+    public class Deliveryman
     {
         private readonly Thread _thread;
         private readonly Warehouse _warehouse;
         private readonly Logger _logger;
+        private readonly string _name;
+        private readonly TimeSpan _workDuration;
         
         private readonly Action<long> _onAccessTimesReport;
         private readonly Action<long> _onWorkTimesReport;
         private readonly Action<long> _onWaitTimesReport;
         
         public EmployeeState State { get; private set; } 
-
-        private TimeSpan WorkDuration { get; }
-        public string Name { get; }
         
-        public Operator(string name, TimeSpan workDuration, Warehouse warehouse, Logger logger, 
+        public Deliveryman(string name, TimeSpan workDuration, Warehouse warehouse, Logger logger, 
             Action<long> onAccessTimesReport, Action<long> onWaitTimesReport, Action<long> onWorkTimesReport = null)
         {
-            Name = name;
-            WorkDuration = workDuration;
+            _name = name;
+            _workDuration = workDuration;
             State = EmployeeState.Idle;
             
             _warehouse = warehouse;
@@ -41,7 +38,7 @@ namespace Threading.SynchronizationPrimitives
                 IsBackground = true
             };
         }
-
+        
         public void StartWork()
         {
             _thread.Start();
@@ -49,7 +46,7 @@ namespace Threading.SynchronizationPrimitives
         
         private bool CanDoWork()
         {
-            return _warehouse.CanPickOrder();
+            return _warehouse.CanPutOrder();
         }
         
         private void DoWork()
@@ -57,8 +54,8 @@ namespace Threading.SynchronizationPrimitives
             do
             {
                 var sw = new Stopwatch();
-                
-                IEnumerable<Order> pickedOrders = ArraySegment<Order>.Empty;
+
+                var deliveredOrders = 0;
 
                 if (CanDoWork())
                 {
@@ -66,18 +63,20 @@ namespace Threading.SynchronizationPrimitives
                     
                     State = EmployeeState.Waiting;
                     
-                    _warehouse.RequestAccessForOperator();
+                    _warehouse.RequestAccessForDeliveryman();
                     
                     _onAccessTimesReport?.Invoke(sw.ElapsedMilliseconds);
                     sw.Restart();
                     
                     State = EmployeeState.Working;
 
-                    Thread.Sleep(WorkDuration);
+                    Thread.Sleep(_workDuration);
 
                     _onWorkTimesReport?.Invoke(sw.ElapsedMilliseconds);
-                    
-                    pickedOrders = _warehouse.PickOrders(1);
+
+                    var orders = new[] { new Order() };
+                    _warehouse.PutOrders(orders);
+                    deliveredOrders = orders.Length;
                 }
                 else
                 {
@@ -90,12 +89,10 @@ namespace Threading.SynchronizationPrimitives
                     _onWorkTimesReport?.Invoke(0);
                 }
 
-                var pickedOrdersCount = pickedOrders.Count();
-
-                if (pickedOrdersCount > 0)
+                if (deliveredOrders > 0)
                 {
-                    _warehouse.NotifyFinishingForOperator();
-                    _logger.Log($"operator {Thread.CurrentThread.Name} picked {pickedOrdersCount} orders.");
+                    _warehouse.NotifyFinishingForDeliveryman();
+                    _logger.Log($"deliveryman {_name} delivered {deliveredOrders} orders.");
                 }
                 
                 State = EmployeeState.Idle;

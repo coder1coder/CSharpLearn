@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Text;
 
 namespace Threading.SynchronizationPrimitives
 {
@@ -16,7 +15,7 @@ namespace Threading.SynchronizationPrimitives
             }
         }
 
-        public void PrintMessages(StringBuilder output)
+        public void PrintMessages(IPrinter output)
         {
             foreach (var message in _log)
             {
